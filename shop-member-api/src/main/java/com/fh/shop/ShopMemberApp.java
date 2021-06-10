@@ -10,7 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ShopMemberApp {
 
     public static void main(String[] args) {
-        System.out.println("今天学习了git，真的好开心");
         SpringApplication.run(ShopMemberApp.class,args);
     }
 }
