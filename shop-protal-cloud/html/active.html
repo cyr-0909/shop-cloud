@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="color: #2eaf56">用户未激活，请<a href="#" onclick="active();">发送激活邮件</a>后，在登录</h1>
+<h1 style="color: #2eaf56">用户未激活，请<a href="#" onclick="active2();">发送激活邮件2</a>后，在登录</h1>
+
+
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="../js/jquery-3.3.1.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script src="../js/common.js"></script>
+<script>
+
+    function active() {
+        var v_memberData=$.cookie("memberData");
+        console.log(v_memberData);
+        $.ajax({
+            type:"post",
+            url:server_url+"/member/sendActiveMail",
+            contentType:"application/json",
+            data:v_memberData,
+            success:function (res) {
+                if (res.code==200){
+                    //删除cookie
+                    $.removeCookie("memberData");
+                    location.href="mailSuccess.html";
+                }
+            }
+        })
+    }
+
+    function active2() {
+        var v_memberData=$.cookie("memberData");
+        var v_param=eval('('+v_memberData+')')
+        console.log(v_param);
+        $.ajax({
+            type:"post",
+            url:server_url+"/member/sendActiveMail2",
+            data:v_param,
+            success:function (res) {
+                if (res.code==200){
+                    //删除cookie
+                    $.removeCookie("memberData");
+                    location.href="mailSuccess.html";
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

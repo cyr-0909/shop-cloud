@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>订单页面</title>
+    <link href="../js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="../js/shop/css/pages-getOrderInfo.css" />
+    <!-- Bootstrap -->
+    <link href="../js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../js/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<table class="table table-bordered" id="orderTable">
+    <thead>
+    <tr>
+        <th>订单编号</th>
+        <th>订单总价格</th>
+        <th>商品总数量</th>
+        <th>订单状态</th>
+        <th>订单创建时间</th>
+        <th>订单收件人</th>
+        <th>地址</th>
+        <th>电话</th>
+        <th>支付方式</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="../js/jquery-3.3.1.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="../js/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script>
+    $(function () {
+        initTable();
+    })
+
+    function initTable() {
+        $.ajax({
+            url: server_url+"/orders/findOrder",
+            type: "post",
+            beforeSend:function(xhr){
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+            success:function (result) {
+                if(result.code==200){
+                    console.log(result.data);
+                    var v_orderList=result.data;
+                    var v_html="";
+
+                    for (var v_order of v_orderList) {
+                        var v_status=v_order.status;
+                        var v_payType=v_order.payType;
+                        var v_statusText="";
+                        if(v_status == 0){
+                            v_statusText="<span style='font-weight: bold;color: lightcoral'>未支付👀</span>";
+                        }else if(v_status == 40){
+                            v_statusText="<span style='font-weight: bold;color: red'>交易关闭🤢</span>";
+                        }else if(v_status==10){
+                            v_statusText="<span style='font-weight: bold;color: mediumspringgreen'>已支付✔</span>";
+                        }
+                        var v_payTypeText="";
+                        if (v_payType==0){
+                            v_payTypeText="支付宝";
+                        } else if (v_payType==1) {
+                            v_payTypeText="微信";
+                        }
+                        v_html+='<tr>';
+                        v_html+='<td>'+v_order.id+'</td>';
+                        v_html+='<td style="color: palevioletred">￥'+v_order.totalPrice+'</td>';
+                        v_html+='<td>'+v_order.totalCount+'</td>';
+                        v_html+='<td>'+v_statusText+'</td>';
+                        v_html+='<td>'+v_order.createTime+'</td>';
+                        v_html+='<td>'+v_order.recipientName+'</td>';
+                        v_html+='<td>'+v_order.recipientAddr+'</td>';
+                        v_html+='<td>'+v_order.recipientPhone+'</td>';
+                        v_html+='<td>'+v_payTypeText+'</td>';
+                        v_html+='<td><a href="#" onclick="cancelOrder(\''+v_order.id+'\')">取消订单</a><a href="#" onclick="payOrder(\''+v_order.id+'\')">/支付</a></td>';
+                        v_html+='</tr>';
+                    }
+                    $('#orderTable tbody').html(v_html);
+                }
+            }
+        })
+    }
+
+    function payOrder(id) {
+        $.ajax({
+            type:"post",
+            url:server_url+"pay/alipay",
+            data:{"orderId":id},
+            success:function (res){
+              if (res.code==200){
+                  console.log(res);
+                  var v_data=res.data;
+                  var v_price= v_data.split("*_:_*")[0];
+                  var v_rest= v_data.split("*_:_*")[1];
+                  var v_id=v_data.split("id:")[1];
+                  $("body").html(v_rest);
+                  $.cookie("price",v_price);
+                  $.cookie("id",v_id);
+              }
+            }
+        })
+    }
+    function cancelOrder(id){
+        $.ajax({
+            type:"post",
+            url:server_url+"orders/cancelOrder/" +id,
+            beforeSend:function(xhr){
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+            success:function (res){
+                if (res.code==200){
+                    initTable();
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

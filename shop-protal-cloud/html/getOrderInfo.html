@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>结算页</title>
+	<link href="../js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../js/shop/css/webbase.css" />
+	<link rel="stylesheet" type="text/css" href="../js/shop/css/pages-getOrderInfo.css" />
+</head>
+
+<body>
+<!--head-->
+<div class="top">
+	<div class="py-container">
+		<div class="shortcut">
+			<ul class="fl">
+				<li class="f-item">品优购欢迎您！</li>
+				<li class="f-item">请登录　<span><a href="#">免费注册</a></span></li>
+			</ul>
+			<ul class="fr">
+				<li class="f-item">我的订单</li>
+				<li class="f-item space"></li>
+				<li class="f-item">我的品优购</li>
+				<li class="f-item space"></li>
+				<li class="f-item">品优购会员</li>
+				<li class="f-item space"></li>
+				<li class="f-item">企业采购</li>
+				<li class="f-item space"></li>
+				<li class="f-item">关注品优购</li>
+				<li class="f-item space"></li>
+				<li class="f-item">客户服务</li>
+				<li class="f-item space"></li>
+				<li class="f-item">网站导航</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="cart py-container">
+	<!--logoArea-->
+	<div class="logoArea">
+		<div class="fl logo"><span class="title">结算页</span></div>
+		<div class="fr search">
+			<form class="sui-form form-inline">
+				<div class="input-append">
+					<input type="text" type="text" class="input-error input-xxlarge" placeholder="品优购自营" />
+					<button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--主内容-->
+	<div class="checkout py-container">
+		<div class="checkout-tit">
+			<h4 class="tit-txt">填写并核对订单信息</h4>
+		</div>
+		<div class="checkout-steps">
+			<!--收件人信息-->
+			<div class="step-tit">
+				<h5>收件人信息<span><a onclick="add()">新增收货地址</a></span></h5>
+			</div>
+			<div class="step-cont">
+				<div class="addressInfo">
+					<ul class="addr-detail">
+						<li class="addr-item" id="recigientInfoDiv">
+
+						</li>
+
+
+					</ul>
+					<!--添加地址-->
+
+					<!--确认地址-->
+				</div>
+				<div class="hr"></div>
+
+			</div>
+			<div class="hr"></div>
+			<!--支付和送货-->
+			<div class="payshipInfo">
+				<div class="step-tit">
+					<h5>支付方式</h5>
+				</div>
+				<div class="step-cont">
+					<ul class="payType">
+						<li class="selected">微信付款<span title="点击取消选择"></span></li>
+						<li>货到付款<span title="点击取消选择"></span></li>
+					</ul>
+				</div>
+				<div class="hr"></div>
+				<div class="step-tit">
+					<h5>送货清单</h5>
+				</div>
+				<div class="step-cont">
+					<ul class="send-detail">
+						<li>
+							<div class="sendGoods" id="cartBody">
+
+							</div>
+						</li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<div class="hr"></div>
+			</div>
+			<div class="linkInfo">
+				<div class="step-tit">
+					<h5>发票信息</h5>
+				</div>
+				<div class="step-cont">
+					<span>普通发票（电子）</span>
+					<span>个人</span>
+					<span>明细</span>
+				</div>
+			</div>
+			<div class="cardInfo">
+				<div class="step-tit">
+					<h5>使用优惠/抵用</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="order-summary">
+		<div class="static fr">
+			<div class="list">
+				<span><i class="number" id="totalCountDiv"></i>件商品，总商品金额</span>
+				<em class="allprice" id="totalPriceDiv"></em>
+			</div>
+			<div class="list">
+				<span>返现：</span>
+				<em class="money">0.00</em>
+			</div>
+			<div class="list">
+				<span>运费：</span>
+				<em class="transport">0.00</em>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix trade">
+		<div class="fc-price">应付金额:　<span class="price" id="totalPriceInfoDiv"></span></div>
+		<div class="fc-receiverInfo" id="addrDiv"></div>
+	</div>
+	<div class="submit">
+		<a class="sui-btn btn-danger btn-xlarge" onclick="order()">提交订单</a>
+	</div>
+</div>
+<!-- 底部栏位 -->
+<!--页面底部-->
+<div class="clearfix footer">
+	<div class="py-container">
+		<div class="footlink">
+			<div class="Mod-service">
+				<ul class="Mod-Service-list">
+					<li class="grid-service-item intro  intro1">
+
+						<i class="serivce-item fl"></i>
+						<div class="service-text">
+							<h4>正品保障</h4>
+							<p>正品保障，提供发票</p>
+						</div>
+
+					</li>
+					<li class="grid-service-item  intro intro2">
+
+						<i class="serivce-item fl"></i>
+						<div class="service-text">
+							<h4>正品保障</h4>
+							<p>正品保障，提供发票</p>
+						</div>
+
+					</li>
+					<li class="grid-service-item intro  intro3">
+
+						<i class="serivce-item fl"></i>
+						<div class="service-text">
+							<h4>正品保障</h4>
+							<p>正品保障，提供发票</p>
+						</div>
+
+					</li>
+					<li class="grid-service-item  intro intro4">
+
+						<i class="serivce-item fl"></i>
+						<div class="service-text">
+							<h4>正品保障</h4>
+							<p>正品保障，提供发票</p>
+						</div>
+
+					</li>
+					<li class="grid-service-item intro intro5">
+
+						<i class="serivce-item fl"></i>
+						<div class="service-text">
+							<h4>正品保障</h4>
+							<p>正品保障，提供发票</p>
+						</div>
+
+					</li>
+				</ul>
+			</div>
+			<div class="clearfix Mod-list">
+				<div class="yui3-g">
+					<div class="yui3-u-1-6">
+						<h4>购物指南</h4>
+						<ul class="unstyled">
+							<li>购物流程</li>
+							<li>会员介绍</li>
+							<li>生活旅行/团购</li>
+							<li>常见问题</li>
+							<li>购物指南</li>
+						</ul>
+
+					</div>
+					<div class="yui3-u-1-6">
+						<h4>配送方式</h4>
+						<ul class="unstyled">
+							<li>上门自提</li>
+							<li>211限时达</li>
+							<li>配送服务查询</li>
+							<li>配送费收取标准</li>
+							<li>海外配送</li>
+						</ul>
+					</div>
+					<div class="yui3-u-1-6">
+						<h4>支付方式</h4>
+						<ul class="unstyled">
+							<li>货到付款</li>
+							<li>在线支付</li>
+							<li>分期付款</li>
+							<li>邮局汇款</li>
+							<li>公司转账</li>
+						</ul>
+					</div>
+					<div class="yui3-u-1-6">
+						<h4>售后服务</h4>
+						<ul class="unstyled">
+							<li>售后政策</li>
+							<li>价格保护</li>
+							<li>退款说明</li>
+							<li>返修/退换货</li>
+							<li>取消订单</li>
+						</ul>
+					</div>
+					<div class="yui3-u-1-6">
+						<h4>特色服务</h4>
+						<ul class="unstyled">
+							<li>夺宝岛</li>
+							<li>DIY装机</li>
+							<li>延保服务</li>
+							<li>品优购E卡</li>
+							<li>品优购通信</li>
+						</ul>
+					</div>
+					<div class="yui3-u-1-6">
+					</div>
+				</div>
+			</div>
+			<div class="Mod-copyright">
+				<ul class="helpLink">
+					<li>关于我们<span class="space"></span></li>
+					<li>联系我们<span class="space"></span></li>
+					<li>关于我们<span class="space"></span></li>
+					<li>商家入驻<span class="space"></span></li>
+					<li>营销中心<span class="space"></span></li>
+					<li>友情链接<span class="space"></span></li>
+					<li>关于我们<span class="space"></span></li>
+					<li>营销中心<span class="space"></span></li>
+					<li>友情链接<span class="space"></span></li>
+					<li>关于我们</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--页面底部END-->
+
+<div id="addDiv" style="display:none">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">用户名:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="add_userName" name="add_userName" placeholder="请输入收件人">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">地址:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="add_address" name="add_address" placeholder="请输入地址">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">电话:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="add_phone" name="add_phone" placeholder="请输入电话">
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div id="editDiv" style="display:none">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">用户名:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="edit_userName" name="edit_userName" placeholder="请输入收件人">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">地址:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="edit_address" name="edit_address" placeholder="请输入地址">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label  class="col-sm-2 control-label">电话:</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="edit_phone" name="edit_phone" placeholder="请输入电话">
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<div id="recigientDiv" style="display:none">
+	<div class="con name ##check##"onclick="updateStatus('##id##')"><a href="javascript:;" >##userName##<span title="点击取消选择">&nbsp;</a></div>
+	<div class="con address" onclick="updateAddress('##id##',this)">##userName## ##address## <span>##phone##</span>
+		##defaultAddr##
+		<span style="display: none"><a onclick="editRecipient('##id##')">编辑</a>&nbsp;&nbsp;<a href="javascript:;" onclick="deleteRecipient('##id##')">删除</a></span>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div id="cartItemDiv" style="display: none">
+	<ul class="send-detail">
+		<li>
+			<div class="sendGoods">
+				<ul class="yui3-g">
+					<li class="yui3-u-1-6">
+						<span><img src="##image##"/></span>
+					</li>
+					<li class="yui3-u-7-12">
+						<div class="desc">##skuName##</div>
+						<div class="seven">7天无理由退货</div>
+					</li>
+					<li class="yui3-u-1-12">
+						<div class="price">￥##price##</div>
+					</li>
+					<li class="yui3-u-1-12">
+						<div class="num">X##count##</div>
+					</li>
+					<li class="yui3-u-1-12">
+						<div class="exit">有货</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+
+
+<script type="text/javascript" src="../js/shop/js/plugins/jquery/jquery.min.js"></script>
+<script src="../js/jquery.cookie.min.js"></script>
+<script src="../js/common.js"></script>
+<!-- 引入bootbox弹框 --><!-- bootBox -->
+<script src="../js/bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/bootbox/bootbox.min.js"></script>
+<script src="../js/bootbox/bootbox.locales.min.js"></script>
+<script>
+
+	$(function () {
+        findRecipient();
+        initCart();
+        findToken();
+    })
+
+	var v_token;
+	function findToken() {
+		$.ajax({
+			type:"post",
+			url:server_url+"tokens/createToken",
+			beforeSend: function (xhr) {
+				var cookie = $.cookie(TOKEN);
+				xhr.setRequestHeader(AUTH, cookie);
+
+			},
+			success:function (res) {
+				if (res.code==200){
+					v_token=res.data;
+
+				}
+            }
+		})
+    }
+
+	function deleteRecipient(id) {
+		$.ajax({
+			type:"delete",
+			url:server_url+"recipient/deleteRec",
+            data: {"id":id},
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+			success:function (res) {
+				if(res.code==200){
+                    findRecipient();
+				}
+            }
+		})
+    }
+
+    function editRecipient(id) {
+        $.ajax({
+            type: "get",
+            url: server_url+"recipient/findUpdate",
+            data: {"id":id},
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+            success: function (result) {
+                if (result.code==200){
+                    var v_recipient=result.data;
+                    console.log(result)
+                    //回填
+                    $("#edit_userName").val(v_recipient.userName);
+                    $("#edit_phone").val(v_recipient.phone);
+                    $("#edit_address").val(v_recipient.address);
+                    //备份
+                    var v_brandHtml=$("#editDiv").html();
+                    //弹框
+                    var  v_editDlg =bootbox.dialog({
+                        title:'修改收件人信息',
+                        message: $("#editDiv form"),
+                        size:"large",
+                        buttons: {
+                            confirm: {
+                                label: '<span class="glyphicon glyphicon - ok"></span>确认',
+                                className: 'btn-primary',
+                                callback:function(){
+                                    //获取参数
+                                    var param={};
+                                    param.userName=$("#edit_userName",v_editDlg).val();
+                                    param.phone=$("#edit_phone",v_editDlg).val();
+                                    param.address=$("#edit_address",v_editDlg).val();
+                                    param.id=v_recipient.id;
+                                    console.log(param)
+                                    $.ajax({
+                                        type:"post",
+                                        url:server_url+"recipient/updateRecipient",
+                                        data:param,
+                                        beforeSend: function (xhr) {
+                                            var cookie = $.cookie(TOKEN);
+                                            xhr.setRequestHeader(AUTH, cookie);
+                                        },
+                                        success:function (result) {
+                                            if (result.code==200){
+                                                findRecipient();
+                                            }
+                                        }
+                                    })
+                                }
+                            },
+                            cancel: {
+                                label: '<span class="glyphicon glyphicon - remove"></span>取消',
+                                className: 'btn-danger'
+                            }
+                        }
+                    });
+                    //还原
+                    $("#editDiv").html(v_brandHtml);
+				}
+
+            }
+        })
+    }
+
+    function initCart() {
+        $.ajax({
+            type: "get",
+            url: server_url + "recipient/findCart",
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+            success: function (result) {
+                if (result.code == 200) {
+                    // 购物车不为空，直接显示内容
+                    console.log(result.data);
+                    if (!result.data){
+                        location.href="cart.html";
+                        return;
+					}
+                    var v_cartItemVoList = result.data.cartItemVoList;
+                    var v_cartItemHtml = $("#cartItemDiv").html();
+                    var v_itemResult ="";
+                    for (let i = 0; i < v_cartItemVoList.length; i++) {
+                        var v_item = v_cartItemVoList[i];
+                        v_itemResult += v_cartItemHtml.replace(/##image##/g, v_item.image)
+                            .replace(/##skuName##/g, v_item.skuName)
+                            .replace(/##price##/g, v_item.price)
+                            .replace(/##count##/g, v_item.count);
+                    }
+                    $("#cartBody").html(v_itemResult);
+                    $("#totalCountDiv").html(result.data.totalCount);
+                    $("#totalPriceDiv").html(result.data.totalPrice);
+                    $("#totalPriceInfoDiv").html(result.data.totalPrice);
+
+                }else if(result.code==6004 || result.code==6002 || result.code==6001){
+                    location.href="login.html";
+				}
+            }
+        })
+    }
+
+	function updateAddress(id,obj) {
+        for (let v_item of v_itemList) {
+			if (v_item.id==id){
+                v_selectItem=v_item;
+                $("#addrDiv").html("寄送至:"+v_item.address+" 收货人："+v_item.userName+" "+v_item.phone+" ");
+			}
+			//重置
+            $(".con.address").css("font-weight","");
+			//设置
+            $(obj).css("font-weight","bold");
+        }
+    }
+	
+	function initEvent() {
+		$(".con.address").hover(function () {
+            $(this).children().last().show();
+        },function () {
+            $(this).children().last().hide();
+        })
+    }
+
+    function updateStatus(id) {
+		$.ajax({
+			type:"get",
+			url:server_url+"recipient/updateStatus",
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+			data:{"id":id},
+            success:function(res) {
+                if (res.code == 200) {
+                    findRecipient();
+                }
+            }
+		})
+    }
+
+    var v_selectItem;
+	var v_itemList;
+	function findRecipient() {
+		$.ajax({
+			type:"get",
+			url:server_url+"recipient/findRecipient",
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+            },
+			success:function(res){
+			    if (res.code==200){
+			        console.log(res.data)
+					v_itemList=res.data;
+			        var v_itemplate=$("#recigientDiv").html();
+			        var v_html="";
+                    for (let v_item of v_itemList) {
+                        v_html +=v_itemplate.replace(/##userName##/g,v_item.userName)
+                            .replace(/##address##/g,v_item.address)
+							 .replace(/##id##/g,v_item.id)
+							 .replace(/##check##/g,v_item.status=='1'?"selected":"")
+							 .replace(/##defaultAddr##/g,v_item.status=='1'?'<span class="base">默认地址</span>':"")
+                            .replace(/##phone##/g,v_item.phone);
+						if (v_item.status=="1"){
+                            //v_selectItem=v_item;
+                            $("#addrDiv").html("寄送至:"+v_item.address+" 收货人："+v_item.userName+" "+v_item.phone+" ")
+                            v_selectItem=v_item;
+						}
+                    }
+                    $("#recigientInfoDiv").html(v_html);
+                    initEvent();
+				}
+			}
+		})
+    }
+
+    function add() {
+        //备份
+        var v_brandHtml=$("#addDiv").html();
+        //弹框
+        var v_userDlg=bootbox.dialog({
+            title:'增加收件人',
+            message:$("#addDiv form"),
+            size:"large",
+            buttons:{
+                confirm:{
+                    label:'<span class="glyphicon glyphicon-ok"></span>确认',
+                    className:'btn-primary',
+                    callback:function () {
+                        //获取参数
+                        var v_param={};
+                        v_param.userName=$("#add_userName",v_userDlg).val();
+                        v_param.address=$("#add_address",v_userDlg).val();
+                        v_param.phone=$("#add_phone",v_userDlg).val();
+                        console.log(v_param)
+                        //发送ajax请求，传递参数
+                        $.ajax({
+                            url:server_url+"recipient/addRecipient",
+                            type:"post",
+                            beforeSend: function (xhr) {
+                                var cookie = $.cookie(TOKEN);
+                                xhr.setRequestHeader(AUTH, cookie);
+
+                            },
+                            data:v_param,
+                            success:function (result) {
+                                if(result.code==200){
+                                    findRecipient();
+                                }
+
+                            }
+                        });
+                    }
+                },
+                cancel:{
+                    label:'<span class="glyphicon glyphicon-remove"></span>取消',
+                    className:'btn-danger',
+                }
+            }
+        });
+        //还原
+        $("#addDiv").html(v_brandHtml);
+    }
+
+    function order() {
+	    if (!v_selectItem){
+	        alert("请选择收件人");
+	        return;
+		}
+	    var v_param={};
+	    v_param.payType=1;
+		v_param.recipientId=v_selectItem.id;
+		console.log(v_param)
+		$.ajax({
+			type:"post",
+			url:server_url+"orders/addOrder",
+            beforeSend: function (xhr) {
+                var cookie = $.cookie(TOKEN);
+                xhr.setRequestHeader(AUTH, cookie);
+                xhr.setRequestHeader(XTOKEN, v_token);
+            },
+			data:v_param,
+			success:function (res) {
+				if (res.code==200){
+				    location.href="order.html";
+				}
+            }
+		})
+    }
+
+</script>
+</body>
+
+</html>
