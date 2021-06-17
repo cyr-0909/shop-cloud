@@ -14,6 +14,11 @@
       <module>shop-feign-service</module>
       <module>shop-reg-center2</module>
       <module>shop-gateway-api</module>
+      <module>shop-consul-center</module>
+      <module>shop-ribbon-api</module>
+      <module>shop-client-model</module>
+      <module>shop-cousl-cloud</module>
+      <module>../shop-test-thread</module>
   </modules>
 
   <parent>

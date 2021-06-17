@@ -43,7 +43,7 @@ public class MemberController extends BaseController {
     @ApiOperation("获取会员信息")
     @ApiImplicitParam(name = "x-auth",value = "头信息",dataType = "java.lang.String",required = true,paramType = "header")
     public ServerResponse findMember(){
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%");
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%");
 //        MemberVo memberVo = (MemberVo) request.getAttribute(Constant.CURR_MEMBER);
         MemberVo memberVo = buildMemberVo(request);
         return ServerResponse.success(memberVo);

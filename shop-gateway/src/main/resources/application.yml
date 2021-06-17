@@ -1,24 +1,28 @@
-eureka:
-  client:
-    register-with-eureka: true #注册到Eureka的注册中心
-    fetch-registry: true #获取注册实例列表
-    service-url:
-      defaultZone: http://localhost:8000/eureka/ #配置注册中心地址
+#eureka:
+#  client:
+#    register-with-eureka: true #注册到Eureka的注册中心
+#    fetch-registry: true #获取注册实例列表
+#    service-url:
+#      defaultZone: http://p1:8000/eureka/,http://p2:8111/eureka/,http://p3:8222/eureka/ #配置注册中心地址
 spring:
   application:
     name: shopGateway
+  cloud:
+    consul: #Consul服务注册发现配置
+      host: localhost
+      port: 8500
 server:
   port: 9000
-zuul:
-  routes:
-    shop-cate-api:
-      path: /cate/**
-    shop-goods-api:
-      path: /goods/fh/shop/**
-    shop-member-api:
-      path: /member/fh/shop/**
-    shop-cart-api:
-      path: /cart/fh/shop/**
+#zuul:
+#  routes:
+#    shop-cate-api:
+#      path: /cate/**
+#    shop-goods-api:
+#      path: /goods/fh/shop/**
+#    shop-member-api:
+#      path: /member/fh/shop/**
+#    shop-cart-api:
+#      path: /cart/fh/shop/**
 fh:
   shop:
     checkUrls: /api/member/findMember,/api/member/loginOut,/api/carts/addCart,/api/carts/findCart,/api/carts/findCartCount,/api/carts/deleteCart,/api/carts/deleteCartBatch

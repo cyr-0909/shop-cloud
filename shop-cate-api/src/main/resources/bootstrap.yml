@@ -35,10 +35,20 @@ spring:
     username: root
   application:
     name: shop-cate-api
-
-eureka:
-  client:
-    register-with-eureka: true #注册到Eureka的注册中心
-    fetch-registry: true #获取注册实例列表
-    service-url:
-      defaultZone: http://localhost:8000/eureka/ #配置注册中心地址
+    cloud:
+        consul: #Consul服务注册发现配置
+          host: localhost
+          port: 8500
+          discovery:
+            service-name: ${spring.application.name}
+  profiles:
+    active: dev
+  cloud:
+    consul:
+      config:
+        format: yaml
+        enabled: true
+        prefix: fhconfig
+        profile-separator: '-'
+        data-key: cateConfig
+        default-context: shop-cate
